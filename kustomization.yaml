@@ -1,0 +1,10 @@
+secretGenerator:
+- name: ours-minecraft-service-bot-secret
+  env: .env
+  files:
+    - .credentials/gcp.json
+
+generatorOptions:
+ disableNameSuffixHash: true
+ labels:
+    app.kubernetes.io/name: ours-minecraft-service-bot

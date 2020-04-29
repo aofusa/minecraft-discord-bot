@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: ours-minecraft-service-bot
+  name: ours-minecraft-service-bot-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ours-minecraft-service-bot
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ours-minecraft-service-bot
+    spec:
+      containers:
+      - image: dev.local/ours-minecraft-service-bot
+        imagePullPolicy: IfNotPresent
+        name: ours-minecraft-service-bot
+        resources:
+          limits:
+            cpu: "1"
+            memory: "128Mi"
+        volumeMounts:
+          - name: ours-minecraft-service-bot-credential-volume
+            mountPath: "/app/.credentials"
+            readOnly: true
+        env:
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: GOOGLE_APPLICATION_CREDENTIALS
+          - name: AUTH_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: AUTH_EMAIL
+          - name: DNS_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: DNS_NAME
+          - name: PROJECT
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: PROJECT
+          - name: GCP_ZONE
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: GCP_ZONE
+          - name: TTL
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: TTL
+          - name: ZONE
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: ZONE
+          - name: TARGET
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: TARGET
+          - name: ZONE_ID
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: ZONE_ID
+          - name: AUTH_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: AUTH_KEY
+          - name: DISCORD_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: DISCORD_TOKEN
+          - name: DISCORD_WEBHOOK
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: DISCORD_WEBHOOK
+          - name: DOMAIN
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: DOMAIN
+          - name: NAME
+            valueFrom:
+              secretKeyRef:
+                name: ours-minecraft-service-bot-secret
+                key: NAME
+      volumes:
+        - name: ours-minecraft-service-bot-credential-volume
+          secret:
+            secretName: ours-minecraft-service-bot-secret
