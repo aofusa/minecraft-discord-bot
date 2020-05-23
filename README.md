@@ -112,7 +112,7 @@ kubectl get secrets
 kubectl describe secrets/ours-minecraft-service-bot-secret
 kubectl describe deployments ours-minecraft-service-bot
 kubectl get pods --output=wide --watch
-kubectl logs ours-minecraft-service-bot-deployment-86b54f6549-bf95v
+kubectl logs -l app.kubernetes.io/name=ours-minecraft-service-bot -f
 
 # 削除する場合
 kubectl delete -f deploy-bot.yaml
