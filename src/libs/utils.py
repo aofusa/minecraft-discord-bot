@@ -29,6 +29,6 @@ def anonymization(x):
 
 
 def update_transaction_id(handler, transaction_id=ulid.new().str):
-    formatter = JsonFormatter('{"timestamp": "%(asctime)-15s", "transaction-id": ' + f'"{ulid.new().str}"' + ', "level": "%(levelname)s", "message": %(message)s}')
+    formatter = JsonFormatter('{"timestamp": "%(asctime)-15s", "transaction-id": ' + f'"{transaction_id}"' + ', "level": "%(levelname)s", "message": %(message)s}')
     handler.setFormatter(formatter)
 
